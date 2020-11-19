@@ -1,6 +1,7 @@
 import cv2, os, joblib, requests, json
 import numpy as np
 from time import time
+from npsocket import SocketNumpyArray
 from numpy import asarray, expand_dims
 from PIL import Image
 from fast_mtcnn import FastMTCNN
@@ -60,8 +61,11 @@ def main():
     count = 0
     fps = 0
 
+    sock_receiver = SocketNumpyArray()
+    sock_receiver.initalize_receiver(9999)
+
     while True:
-        frame = cv2.imread('test.jpg')
+        frame = sock_receiver.receive_array()
 
         if time() - start >= 1:
             fps = count
@@ -102,6 +106,8 @@ def main():
             pred_probs = svc_model.predict_proba(trainX)
             pred_names = encoder.inverse_transform(preds)
 
+            res = []
+
             for pred_prob, pred_name, box in zip(pred_probs, pred_names, boxes[0]):
                 accuracy = pred_prob[np.argmax(pred_prob)]*100
 
@@ -110,7 +116,11 @@ def main():
                 else:
                     text = 'Unknown'
 
-                print(text)
+                res.append([text, box])
+
+            sock_receiver.response_to_sender([res[0][0]])
+
+                # print(text)
 
         print('FPS: {}'.format(fps))
         print('-'*50)
