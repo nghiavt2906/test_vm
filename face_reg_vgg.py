@@ -118,7 +118,9 @@ def main():
 
                 res.append([text, box])
 
+            print('sending result to sender...')
             sock_receiver.response_to_sender([res[0][0]])
+            print('complete sending.')
 
                 # print(text)
 
