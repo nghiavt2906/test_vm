@@ -5,11 +5,9 @@ from npsocket import SocketNumpyArray
 from numpy import asarray, expand_dims
 from PIL import Image
 from fast_mtcnn import FastMTCNN
-from sklearn.preprocessing import Normalizer, LabelEncoder
+from sklearn.preprocessing import Normalizer
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
-from keras_vggface.utils import decode_predictions
-from sklearn.svm import SVC
 
 fast_mtcnn = FastMTCNN(
     stride=4,
