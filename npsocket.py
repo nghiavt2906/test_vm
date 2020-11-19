@@ -71,6 +71,7 @@ class SocketNumpyArray():
         # Retrieve all data based on message size
         while len(self.data) < msg_size:
             self.data += self.conn.recv(4096)
+            print(self.data)
 
         frame_data = self.data[:msg_size]
         self.data = self.data[msg_size:]
