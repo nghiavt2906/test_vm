@@ -63,7 +63,9 @@ def main():
     sock_receiver.initalize_receiver(9999)
 
     while True:
+        print('try to receive image...')
         frame = sock_receiver.receive_array()
+        print('received image.')
 
         if time() - start >= 1:
             fps = count
