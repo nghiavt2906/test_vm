@@ -1,4 +1,4 @@
-import cv2, os, joblib, requests, json
+import os, joblib, requests, json
 import numpy as np
 from time import time
 from npsocket import SocketNumpyArray
